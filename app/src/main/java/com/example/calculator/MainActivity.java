@@ -68,10 +68,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         } else{
             String data = texte.getText().toString();
             if (data.equals("")){
-                texte.setText( buttonText);
-            }else {
-                if(buttonText.equals("+") || buttonText.equals("x") || buttonText.equals("/") || buttonText.equals("-") ) {
+                if (buttonText.equals("cos") || buttonText.equals("sin") || buttonText.equals("tan")) {
+                    texte.setText( buttonText + " ");
+                } else {
+                    texte.setText( buttonText);}
+            } else {
+                if(buttonText.equals("+") || buttonText.equals("x") || buttonText.equals("/") || buttonText.equals("-")  ) {
                     texte.setText(data + " " + buttonText + " ");
+                } else if (buttonText.equals("cos") || buttonText.equals("sin") || buttonText.equals("tan")) {
+                        texte.setText(data + buttonText + " ");
                 } else {
                     texte.setText(data + buttonText);
                 }
@@ -82,32 +87,70 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     public String Calculate(String dataToCalculate){
         ArrayList<String> list = new ArrayList<String>(Arrays.asList(dataToCalculate.split(" ")));
+        System.out.println(list.size());
         try{
-
-        do {
-            System.out.println(list.size());
-            String nb1_a = list.get(0);
-            String nb2_a = list.get(2);
-            double nb1 = Double.valueOf(nb1_a).doubleValue();
-            double nb2 = Double.valueOf(nb2_a).doubleValue();
-            String op = list.get(1);
-            double result = 0;
-            if (op.equals("+")) {
-                result = nb1 + nb2;
-            } else if (op.equals("-")) {
-                result = nb1 - nb2;
-            } else if (op.equals("x")) {
-                result = nb1 * nb2;
-            } else if (op.equals("/")) {
-                result = nb1 / nb2;
+            for(int k=0; k<list.size(); k++) {
+                String s = list.get(k);
+                if (s.equals("cos")){
+                    String n = list.get(k+1);
+                    double angdeg = Double.valueOf(n).doubleValue();
+                    double result = Math.cos((angdeg* Math.PI / 180));
+                    double resultarr = Math.round(result*1000000.0)/1000000.0;
+                    System.out.println(resultarr);
+                    String resultat = String.valueOf(resultarr);
+                    String s1 = list.remove(k+1);
+                    String s2 = list.remove(k);
+                    list.add(k,resultat);
+                } else if (s.equals("sin")){
+                    String n = list.get(k+1);
+                    double angdeg = Double.valueOf(n).doubleValue();
+                    double result = Math.sin((angdeg* Math.PI / 180));
+                    double resultarr = Math.round(result*1000000.0)/1000000.0;
+                    System.out.println(resultarr);
+                    String resultat = String.valueOf(resultarr);
+                    String s1 = list.remove(k+1);
+                    String s2 = list.remove(k);
+                    list.add(k,resultat);
+                } else if (s.equals("tan")){
+                    String n = list.get(k+1);
+                    double angdeg = Double.valueOf(n).doubleValue();
+                    double result = Math.tan((angdeg* Math.PI / 180));
+                    double resultarr = Math.round(result*1000000.0)/1000000.0;
+                    System.out.println(resultarr);
+                    String resultat = String.valueOf(resultarr);
+                    String s1 = list.remove(k+1);
+                    String s2 = list.remove(k);
+                    list.add(k,resultat);
+                }
             }
-            String resultat = String.valueOf(result);
-            list.remove(2);
-            list.remove(1);
-            list.remove(0);
-            list.add(0,resultat);
-        } while(list.size() !=1);
-            return list.get(0);
+            if (list.size()==1){
+                return list.get(0);
+            } else {
+                do {
+                    System.out.println(list.size());
+                    String nb1_a = list.get(0);
+                    String nb2_a = list.get(2);
+                    double nb1 = Double.valueOf(nb1_a).doubleValue();
+                    double nb2 = Double.valueOf(nb2_a).doubleValue();
+                    String op = list.get(1);
+                    double result = 0;
+                    if (op.equals("+")) {
+                        result = nb1 + nb2;
+                    } else if (op.equals("-")) {
+                        result = nb1 - nb2;
+                    } else if (op.equals("x")) {
+                        result = nb1 * nb2;
+                    } else if (op.equals("/")) {
+                            result = nb1 / nb2;
+                    }
+                    String resultat = String.valueOf(result);
+                    list.remove(2);
+                    list.remove(1);
+                    list.remove(0);
+                    list.add(0,resultat);
+            } while(list.size() !=1);
+                return list.get(0);
+            }
         } catch (Exception e){
             return "erreur";
         }

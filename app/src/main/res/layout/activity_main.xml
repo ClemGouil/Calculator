@@ -57,7 +57,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="70dp"
                 android:layout_weight="1"
-                android:text="cos" />
+                android:text="@string/cos" />
 
             <Button
                 android:id="@+id/buttonsin"
@@ -107,7 +107,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="70dp"
                 android:layout_weight="1"
-                android:text="," />
+                android:text="." />
 
         </LinearLayout>
 

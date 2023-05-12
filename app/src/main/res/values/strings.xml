@@ -2,4 +2,5 @@
     <string name="app_name">Calculator</string>
     <string name="tan">tan</string>
     <string name="sin">sin</string>
+    <string name="cos">cos</string> />
 </resources>
